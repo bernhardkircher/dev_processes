@@ -1,0 +1,205 @@
+Info 
+
+The codereview checklist should help us performing code reviews and make it easier for us to accept feedback from other's. It's not my code, it's our code and it's our responsibility to keep/make our code the way we want it to have. 
+
+Changes/ideas should be discussed in the team and afterwards the result should be documented here. 
+
+  
+
+Responsibilities - Everyone 
+
+Accept that many programming decisions are opinions. Discuss tradeoffs, which you prefer, and reach a resolution quickly. 
+
+Ask good questions; don't make demands. ("What do you think about naming this `:user_id`?") 
+
+Good questions avoid judgment and avoid assumptions about the author's perspective. 
+
+Ask for clarification. ("I didn't understand. Can you clarify?") 
+
+Avoid selective ownership of code. ("mine", "not mine", "yours") 
+
+Avoid using terms that could be seen as referring to personal traits. ("dumb","stupid"). Assume everyone is intelligent and well-meaning. 
+
+Be explicit. Remember people don't always understand your intentions online (https://www.fastcodesign.com/3036748/why-its-so-hard-to-detect-emotion-in-emails-and-texts). 
+
+Be humble. ("I'm not sure - let's look it up.") 
+
+Don't use hyperbole. ("always", "never", "endlessly", "nothing") 
+
+Don't use sarcasm. 
+
+Keep it real. If emoji, animated gifs, or humor aren't you, don't force them. If they are, use them with aplomb. 
+
+Talk synchronously (e.g. chat, screensharing, in person) if there are too many "I didn't understand" or "Alternative solution:" comments. Post a follow-up comment summarizing the discussion. 
+
+  
+
+Having Your Code Reviewed 
+
+Be grateful for the reviewer's suggestions. ("Good call. I'll make that change.") 
+
+A common axiom is "Don't take it personally. The review is of the code, not you." We used to include this, but now prefer to say what we mean: Be aware of [how hard it is to convey emotion online] and how easy it is to misinterpret feedback. If a review seems aggressive or angry or otherwise personal, consider if it is intended to be read that way and ask the person for clarification of intent, in person if possible. 
+
+Keeping the previous point in mind: assume the best intention from the reviewer's comments. 
+
+Explain why the code exists. ("It's like that because of these reasons. Would it be more clear if I rename this class/file/method/variable?") 
+
+Extract some changes and refactorings into future tickets/stories. 
+
+Link to the code review from the ticket/story. ("Ready for review: https://github.com/organization/project/pull/1") 
+
+Push commits based on earlier rounds of feedback as isolated commits to the branch. Do not squash until the branch is ready to merge. Reviewers should be able to read individual updates based on their earlier feedback. 
+
+Seek to understand the reviewer's perspective. 
+
+Try to respond to every comment. 
+
+Wait to merge the branch until Continuous Integration (TFS) tells you the test suite is green in the branch. 
+
+Merge once you feel confident in the code and its impact on the project. 
+
+  
+
+Reviewing Code 
+
+Understand why the change is necessary (fixes a bug, improves the user 
+experience, refactors the existing code). Then: 
+
+Communicate which ideas you feel strongly about and those you don't. 
+
+Identify ways to simplify the code while still solving the problem. 
+
+If discussions turn too philosophical or academic, move the discussion offline to a regular Friday afternoon technique discussion. In the meantime, let the author make the final decision on alternative implementations. 
+
+Offer alternative implementations, but assume the author already considered them. ("What do you think about using a custom validator here?") 
+
+Seek to understand the author's perspective. 
+
+Sign off on the pull request with a :thumbsup: or "Ready to merge" comment. 
+
+  
+
+  
+
+Code 
+
+Are CI builds passing? If no, why? 
+
+Is the code easily understood? 
+
+Does the code work? Does it perform its intended function, the logic is correct, etc? 
+
+Does the error handling work? 
+
+Does the code work for "unexpected" workloads (e.g. it works for a account with 10 professionals, but does it also work for an account with 1000)? 
+
+Can any global/static variables be replaced? 
+
+Are classes/variables/functions/methods named intuitively (see styleguide/codeguideline)? 
+
+Is there any redundant or duplicate code (is it realy redundant or does it only look like the same, but has a different semantic)? 
+
+Is the code modular enough and not too modular? 
+
+Can any of the code be replaced with library functions (e.g. css frameworks, dataaccess libraries, .NET, NuGet packages,...)? 
+
+Logging: is there logging for all businesslogic decision, which help later on for troubleshooting and are the messages helpful? 
+
+Does the code conform to the styleguide? 
+
+Are there any null pointer dereferences? 
+
+Are there any compiler warnings left (unused variables,...)? 
+
+Is the code cleanedup (all dummy methods, logginsg statements etc. have been removed)? 
+
+Are there any hardcoded variables that are system/environment dependent (e.g. URL's, Connectionstrings,...)?  
+ 
+ 
+
+Testing 
+
+Is the code written in a unittestable way? 
+
+Is code covered by functional or unit tests (for bugfixes: we do not want to have the same bug again)? 
+
+Are error paths covered by functional or unit tests? All errors which are relatively easy to check must be checked (e.g. expected problems, not systemic problems like database not accessible...): 
+
+For new code, are unit tests written where needed? 
+
+Design 
+
+Does the code follow the Single responsible principle/separation of concerns (code does not do too much)? 
+
+  
+
+Deployment 
+
+Did we think about how to deploy the code? how should it be deployed? 
+
+Are there any changes requried per deployment (e.g. different config values,...) - are these documetned? 
+
+  
+
+Security 
+
+Is SQL Injection prevented (always use parametrized queries)? 
+
+Are common security issues covered (Crosssite request forgery,..): https://www.owasp.org/index.php/Main_Page 
+
+Are all data inputs checked (for the correct type, length, format, and range) and encoded? 
+
+Where third-party utilities are used, are returning errors being caught? 
+
+Are output values checked and encoded? 
+
+Are invalid parameter values handled? 
+
+  
+
+Documentation 
+
+Are there any superfluous comments? 
+
+Where needed, do comments exist and describe the intent of the code? 
+
+Are any comments made outdated by the new code? 
+
+Is any unusual behavior or edge-case handling described? 
+
+Are complex algorithms explained and justified? 
+
+Is there any incomplete code, e.g., code marked `TODO`, `FIXME`, or `XXX`? 
+
+Are new features/plugins documented in confluence (high level documentation)? 
+
+  
+
+Sourcecontrol 
+
+Do the commits/changes contain a good description about the change and why it was done? 
+
+TODO sicuss: https://github.com/erlang/otp/wiki/writing-good-commit-messages, https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53 or  https://chris.beams.io/posts/git-commit/ 
+ 
+
+  
+
+  
+
+OPEN TODO's 
+
+  
+
+info about code analysis tools, linter,hint,.. - and integrate into our process (e.g. https://www.sonarqube.org/ fxcop,...) 
+
+architecture 
+
+non functional requirements 
+
+database scripts: 
+
+make them repeatable (check if colum/object exists) 
+
+make comment/maybe link to jira ticket so that everyone understands what the purpose of the script is. 
+
+ 
